@@ -5,8 +5,9 @@
 {% block content %}
   <h1 class="pb-2 mb-0">Главная страница</h1>
   {% for ice_cream in ice_cream_list %}
-    <h3>{{ ice_cream.title }}</h3>
-    <p>ID: {{ ice_cream.id }}</p>
-    <p>{{ ice_cream.description }}</p>
-  {% endfor %}
-{% endblock %}
+    <h3>{{ ice_cream.title }} ID: {{ ice_cream.id }}</h3> 
+    <p>Категория: {{ ice_cream.category.title }}</p>
+    <p>Слаг категории: {{ ice_cream.category.slug }}</p>
+    <p>Порядок отображения: {{ ice_cream.category.output_order }}</p>
+  {% endfor %}  
+{% endblock %} 

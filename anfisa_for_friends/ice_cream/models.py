@@ -1,5 +1,4 @@
 from django.db import models
-
 from core.models import PublishedModel
 
 
@@ -60,26 +59,47 @@ class Wrapper(PublishedModel):
 
 
 class IceCream(PublishedModel):
-    title = models.CharField(max_length=256, verbose_name='Название')
-    description = models.TextField(verbose_name='Описание')
+    title = models.CharField(
+        max_length=256,
+        verbose_name='Название'
+    )
+    description = models.TextField(
+        verbose_name='Описание'
+    )
     wrapper = models.OneToOneField(
         Wrapper,
         on_delete=models.SET_NULL,
         related_name='ice_cream',
         verbose_name='Обёртка',
         null=True,
-        blank=True,
+        blank=True
     )
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
         related_name='ice_creams',
-        verbose_name='Категория',
+        verbose_name='Категория'
     )
-    toppings = models.ManyToManyField(Topping, verbose_name='Топпинги')
-    is_on_main = models.BooleanField(default=False, verbose_name='На главную')
+    toppings = models.ManyToManyField(
+        Topping,
+        verbose_name='Топпинги'
+    )
+    is_on_main = models.BooleanField(
+        default=False,
+        verbose_name='На главную'
+    )
+    output_order = models.PositiveSmallIntegerField(
+        default=100,
+        verbose_name='Порядок отображения'
+    )
+    price = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        verbose_name='Цена'
+    )
 
     class Meta:
+        ordering = ('output_order', 'title')
         verbose_name = 'Мороженое'
         verbose_name_plural = 'Мороженое'
 

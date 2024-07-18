@@ -5,11 +5,13 @@ from ice_cream.models import IceCream
 
 def index(request):
     template = 'homepage/index.html'
-    ice_cream_list = IceCream.objects.select_related(
-        'category'
+    ice_cream_list = IceCream.objects.values(
+        'id', 'title', 'price', 'description'
     ).filter(
-        # В точности то же самое:
-        category__is_published=True
+        # Проверяем, что
+        is_published=True,  # Сорт разрешён к публикации;
+        is_on_main=True,  # Сорт разрешён к публикации на главной странице;
+        category__is_published=True  # Категория разрешена к публикации.
     )
     context = {
         'ice_cream_list': ice_cream_list,
